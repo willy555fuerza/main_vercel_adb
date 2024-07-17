@@ -370,9 +370,9 @@ const getAllmiembros = async () => {
   }
 };
 
-const getAllUsuarioPromise = getAllUsuario();
-const getAllTipoingresosPromise = getAllTipoingresos();
-const getAllmiembroPromise = getAllmiembro();
+const getAllUsuarioPromise = getAllUsuarios();
+const getAllTipoingresosPromise = getAllTipoingreso();
+const getAllmiembroPromise = getAllmiembros();
 
   //*************renderizado de tabla usuarios y mostrar tabla usuario*******************/
   const venta = document;

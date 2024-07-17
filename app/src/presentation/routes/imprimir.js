@@ -161,7 +161,7 @@ router.post('/downloadpdf', async (req, res) => {
 
 
 router.post('/imprimirtabla', async (req, res) => {
-  const {datosTabla} = req.body
+  const { datosTabla } = req.body;
 
   try {
     // Crear un nuevo documento PDF
@@ -193,49 +193,44 @@ router.post('/imprimirtabla', async (req, res) => {
     doc.fontSize(20).text('THE BEST COMPANY ADB', { align: 'center' });
 
     // Agregar datos del ingreso al PDF
-   /*  doc.moveDown(); */
-   doc.moveDown(2);
-   doc.fontSize(12).text('Detalles del Ingreso:', { align: 'center', underline: true });
+    doc.moveDown(2);
+    doc.fontSize(12).text('Detalles del Ingreso:', { align: 'center', underline: true });
    
-   // Añadir una tabla
-   const tableTop = doc.y + 50; // Centrar verticalmente desde la posición actual
+    // Añadir una tabla
+    const tableTop = doc.y + 20; // Centrar verticalmente desde la posición actual
    
-   // Dibujar la tabla
-   doc.fontSize(10);
-   const rowHeight = 18; // Reducir aún más la altura de las filas
-   let rowTop = tableTop;
+    // Dibujar la tabla
+    doc.fontSize(10);
+    const rowHeight = 18; // Reducir aún más la altura de las filas
+    let rowTop = tableTop;
    
-   // Ancho de las columnas adaptado
-   const columnWidths = [60, 110, 110, 110, 60, 60]; // Ajustar los anchos de las columnas
+    // Ancho de las columnas adaptado
+    const columnWidths = [60, 110, 110, 110, 60, 70]; // Ajustar los anchos de las columnas
    
-   // Cabecera de la tabla con colores
-   const headers = ['ID Ingreso', 'Usuario', 'Tipo de Ingreso', 'Miembro', 'Monto', 'Fecha'];
-   headers.forEach((header, i) => {
-     doc.fillColor('blue')
-       .rect(50 + columnWidths.slice(0, i).reduce((a, b) => a + b, 0), rowTop, columnWidths[i], rowHeight)
-       .fill();
-     doc.fillColor('white')
-       .text(header, 50 + columnWidths.slice(0, i).reduce((a, b) => a + b, 0) + 5, rowTop + 3, { width: columnWidths[i] - 10, align: 'center' });
-   });
+    // Cabecera de la tabla con colores
+    const headers = ['ID Ingreso', 'Usuario', 'Tipo de Ingreso', 'Miembro', 'Monto', 'Fecha'];
+    headers.forEach((header, i) => {
+      doc.fillColor('blue')
+        .rect(50 + columnWidths.slice(0, i).reduce((a, b) => a + b, 0), rowTop, columnWidths[i], rowHeight)
+        .fill();
+      doc.fillColor('white')
+        .text(header, 50 + columnWidths.slice(0, i).reduce((a, b) => a + b, 0) + 5, rowTop + 3, { width: columnWidths[i] - 10, align: 'center' });
+    });
    
-   rowTop += rowHeight;
+    rowTop += rowHeight;
   
-   
-   datosTabla.forEach((row) => {
-      doc.fontSize(7).fillColor('black')
-        doc.text(row[5], 462)
-        doc.text(row[1], 510)
-        doc.text(row[2], 250)
-        doc.text(row[3], 145)
-        doc.text(row[4], 364)
-        doc.text(row[0], 70)
-  });
-   
-
-   rowTop += rowHeight; 
-
-   // Asegurarse de que total_ingresos esté definido
-  
+    datosTabla.forEach((row) => {
+      // Reordenar los datos para que el segundo dato (Usuario) se mueva al final
+      const reorderedRow = [row[0], row[2], row[3], row[4], row[5], row[1]];
+      
+      // Dibujar cada celda en la fila
+      reorderedRow.forEach((cell, i) => {
+        doc.fillColor('black')
+          .text(cell, 50 + columnWidths.slice(0, i).reduce((a, b) => a + b, 0) + 5, rowTop + 3, { width: columnWidths[i] - 10, align: 'center' });
+      });
+      // Mover la posición y hacia abajo para la siguiente fila
+      rowTop += rowHeight;
+    });
     
     // Finalizar el documento PDF
     doc.end();
@@ -243,7 +238,7 @@ router.post('/imprimirtabla', async (req, res) => {
     console.error('Error:', error);
     res.status(500).send('Error al generar el PDF');
   }
-})
+});
 module.exports = router;
 
 
