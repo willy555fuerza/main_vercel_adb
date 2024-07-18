@@ -43,6 +43,48 @@ module.exports = { getAllventa };
 const { request } = require("express");
 const {connectToPostgres,disconnectFromPostgres,} = require("../../infrastructure/database/db");
 
+class pdff{
+  static async getAllventa(id_egreso) {
+    try {
+      const pool = await connectToPostgres();
+        if (!pool) {
+          throw new Error("Error al conectar con PostgreSQL");
+        }
+        console.log(id_egreso)
+
+      const query = `
+         SELECT 
+  egreso.id_egreso, 
+  usuario.nombres AS usuario_nombres, 
+  usuario.apellidos AS usuario_apellidos, 
+  tipo_egreso.nombre AS tipo_egreso,
+  egreso.monto,
+  egreso.fecha_egreso,
+  (SELECT SUM(monto) FROM egreso) AS total_egresos
+FROM egreso 
+JOIN usuario ON egreso.id_usuario = usuario.id_usuario 
+JOIN tipo_egreso ON egreso.id_tipo_egresos = tipo_egreso.id_tipo_egresos
+WHERE egreso.id_egreso = '${id_egreso}'
+ORDER BY egreso.fecha_egreso;
+
+      `;
+      const result = await  pool.query(query);
+      await disconnectFromPostgres(pool);
+      console.log(result.rows)
+
+      if (result.rows.length === 0) {
+        return { error: true, message: 'Ingreso no encontrado' };
+      }
+      return { error: false, data: result.rows };
+    } catch (error) {
+      console.error('Error al obtener datos del ingreso:', error);
+      return { error: true, message: 'Error al obtener datos del ingreso' };
+    }
+  }
+}
+
+
+module.exports = pdff;
 
 class pdf{
   static async getAllventa(id_ingreso) {
@@ -88,3 +130,4 @@ ORDER BY ingreso.fecha_ingreso;
 
 
 module.exports = pdf;
+

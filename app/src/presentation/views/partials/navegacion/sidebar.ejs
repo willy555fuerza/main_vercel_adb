@@ -40,12 +40,12 @@
         </div>
       </div>
       <div class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle <%= ['/tipo_egresos', '/nueva-compra', '/compras'].includes(currentRoute) ? 'active' : '' %>" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Registro
-          Compras</a>
+        <a href="#" class="nav-link dropdown-toggle <%= ['/tipo_egresos', '/nueva-compra', '/egresos'].includes(currentRoute) ? 'active' : '' %>" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Registro
+          Egresos</a>
         <div class="dropdown-menu bg-transparent border-0">
           <a href="/tipo_egresos" class="dropdown-item <%= currentRoute === '/tipo_egreso' ? 'active' : '' %>">Tipos Egresos</a>
           <a href="/nueva-compra" class="dropdown-item <%= currentRoute === '/nueva-compra' ? 'active' : '' %>">Nueva compra</a>
-          <a href="/compras" class="dropdown-item <%= currentRoute === '/compras' ? 'active' : '' %>">Compras</a>
+          <a href="/egresos" class="dropdown-item <%= currentRoute === '/egresos' ? 'active' : '' %>">egresos</a>
         </div>
       </div>
     </div>

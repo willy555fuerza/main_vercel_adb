@@ -64,8 +64,8 @@ router.get('/Nueva-compra', (req, res) => {
 });
 
 // Ruta de compras
-router.get('/Compras', (req, res) => {
-    res.render('compras',{title: 'Compras📝'});
+router.get('/egresos', (req, res) => {
+    res.render('egreso',{title: 'egresos📝'});
 });
 
 // Usa las rutas específicas para la Secretaria

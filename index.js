@@ -75,7 +75,7 @@ const listaRoutes = require('./app/src/presentation/routes/listaRoutes')
 const tipo_ingresosRoutes = require('./app/src/presentation/routes/tipo_ingresosRoutes')
 const ingresosRoutes = require('./app/src/presentation/routes/ingresosRoutes')
 const tipo_egresosRoutes = require('./app/src/presentation/routes/tipo_egresosRouter')
-const compraRoutes = require('./app/src/presentation/routes/compraRoutes')
+const egresoRoutes = require('./app/src/presentation/routes/egresosRoutes')
 const perfilRoutes = require('./app/src/presentation/routes/perfilRoutes')
 const downloadpdf = require('./app/src/presentation/routes/imprimir')
 
@@ -94,7 +94,7 @@ app.use(listaRoutes,authMiddleware);
 app.use(tipo_ingresosRoutes,authMiddleware);
 app.use(ingresosRoutes,authMiddleware);
 app.use(tipo_egresosRoutes,authMiddleware);
-app.use(compraRoutes,authMiddleware);
+app.use(egresoRoutes,authMiddleware);
 app.use(perfilRoutes,authMiddleware);
 app.use(downloadpdf);
 

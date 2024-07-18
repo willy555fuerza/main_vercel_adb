@@ -58,8 +58,8 @@ const verificarAutenticacion = async () => {
     if (response.ok) {
       const data = await response.json();
       const { perfil } = data;
-      if (perfil === 'VENDEDOR') {
-        window.location.href = "/frond/Y.vendedor/index.html";
+      if (perfil === 'SECRETARIA') {
+        window.location.href = "/frond/Secretaria/index.html";
       } else if (perfil === 'ADMINISTRADOR') {
         window.location.href = "/frond/X.admin/index.html";
       } 

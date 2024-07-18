@@ -15,12 +15,6 @@ router.post('/create_ingreso', Users.createUser);
 router.put('/ingreso/:id_ingreso', Users.updateUser); 
 // Ruta para eliminar un usuario
 router.delete('/ingreso_delete/:userId', Users.deleteUser);
-// Ruta para obtener los datos del cliente
-/* router.post('/bustipo_ingreso',Users.buscliente)
-// Ruta para obtener los datos del producto
-router.post('/busmiembro',Users.busproducto) */
-// Ruta para obtener los datos del producto
-/* router.post('/geneingreso',Users.geneventa) */
 
  
 module.exports = router 

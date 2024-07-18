@@ -186,3 +186,40 @@ SELECT
         JOIN tipo_ingreso ON ingreso.id_tipo_ingresos = tipo_ingreso.id_tipo_ingresos
         JOIN miembro ON ingreso.id_miembro = miembro.id_miembro
         WHERE ingreso.id_ingreso = 1
+
+/**********************************************************************************************/
+
+   SELECT 
+  ingreso.id_ingreso, 
+  usuario.nombres AS usuario_nombres, 
+  usuario.apellidos AS usuario_apellidos, 
+  tipo_ingreso.nombre AS tipo_ingreso_nombre,
+  miembro.nombres AS miembro_nombres,
+  miembro.apellidos AS miembro_apellidos,
+  ingreso.monto,
+  ingreso.fecha_ingreso,
+  (SELECT SUM(monto) FROM ingreso) AS total_ingresos
+FROM ingreso 
+JOIN usuario ON ingreso.id_usuario = usuario.id_usuario 
+JOIN tipo_ingreso ON ingreso.id_tipo_ingresos = tipo_ingreso.id_tipo_ingresos
+JOIN miembro ON ingreso.id_miembro = miembro.id_miembro
+where id_ingreso = '${id_ingreso}'
+ORDER BY ingreso.fecha_ingreso;
+      `;
+
+/**********************************************************************************************/
+SELECT 
+  egreso.id_egreso, 
+  usuario.nombres AS usuario_nombres, 
+  usuario.apellidos AS usuario_apellidos, 
+  tipo_egreso.nombre AS tipo_egreso,
+  egreso.monto,
+  egreso.fecha_egreso,
+  (SELECT SUM(monto) FROM egreso) AS total_egresos
+FROM egreso 
+JOIN usuario ON egreso.id_usuario = usuario.id_usuario 
+JOIN tipo_egreso ON egreso.id_tipo_egresos = tipo_egreso.id_tipo_egresos
+WHERE egreso.id_egreso = 2
+ORDER BY egreso.fecha_egreso;
+
+/**********************************************************************************************/
